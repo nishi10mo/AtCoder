@@ -1,4 +1,4 @@
-def judgeOddEven(a, b):
+def Product(a, b):
   t = a*b%2
   if(t == 0):
     return "Even"
@@ -6,4 +6,4 @@ def judgeOddEven(a, b):
     return "Odd"
 
 a, b = map(int, input().split())
-print(judgeOddEven(a, b))
+print(Product(a, b))
