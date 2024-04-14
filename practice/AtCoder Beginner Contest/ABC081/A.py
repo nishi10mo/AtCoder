@@ -1,4 +1,4 @@
-def countOne(a, b, c):
+def PlacingMarbles(a, b, c):
   d = 0
   if(a == 1):
     d += 1
@@ -9,4 +9,4 @@ def countOne(a, b, c):
   return d
 
 s1, s2, s3 = [int(i) for i in list(str(input()))]
-print(countOne(s1, s2, s3))
+print(PlacingMarbles(s1, s2, s3))
