@@ -8,3 +8,4 @@ def TrainTicket(a, b, c, d):
 
 a, b, c, d = list(input())
 print(TrainTicket(a, b, c, d))
+
