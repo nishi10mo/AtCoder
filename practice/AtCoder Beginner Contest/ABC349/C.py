@@ -1,20 +1,14 @@
 # Airport Code
 def judgeAirport(S, T):
-    if T[0].lower() in S and T[1].lower() in S:
-        first = S.index(T[0].lower())
-        second = S.index(T[1].lower())
-        if T[2].lower() in S:
-            third = S.index(T[2].lower())
-            if first < second < third:
-                return "Yes"
-            else:
-                return "No"
-        elif first < second and T[2]=="X":
+    T = [i.lower() for i in T]
+    S.append("x")
+    c = 0
+    for i in range(len(S)):
+        if T[c]==S[i]:
+            c += 1
+        if c == 3:
             return "Yes"
-        else:
-            return "No"
-    else:
-        return "No"
+    return "No"
 
 def main():
     S = list(input())
