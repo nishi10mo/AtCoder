@@ -1,10 +1,16 @@
 # Ideal Holidays
 def calc(N, A, B, D):
   week = A + B
-  for i in range(week):
-    D_ = [(i+j)%week for j in D]
-    diff = max(D_) - min(D_)
-    if diff < A:
+  D = [i%week for i in D]
+  D = sorted(list(set(D)))
+  if len(D)==1:
+    return "Yes"
+  for i in range(len(D)):
+    if i == len(D)-1:
+      diff = (D[0]-D[i])%week
+    else:
+      diff = (D[i+1]-D[i])%week
+    if diff > B:
       return "Yes"
   return "No"
 
