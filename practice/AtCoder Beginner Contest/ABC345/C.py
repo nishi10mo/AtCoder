@@ -1,8 +1,6 @@
 # One Time Swap
 def calc(S):
   n = len(S)
-  if n == 1:
-    return 1
   S_ = list(set(S))
   ans = n*(n-1)//2
   for i in S_:
