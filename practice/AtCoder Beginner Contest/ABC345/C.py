@@ -1,10 +1,11 @@
 # One Time Swap
 def calc(S):
   n = len(S)
-  S_ = list(set(S))
+  cnt = {}
   ans = n*(n-1)//2
-  for i in S_:
-    c = S.count(i)
+  for s in S:
+    if cnt{s} is
+    cnt[s] += 1
     if c > 1:
       minus = c*(c-1)//2 - 1
       ans -= minus
