@@ -7,6 +7,7 @@ def calc(N, M, K, CAR):
     for i in range(N):
       if bit & (1 << i):
         tmp.append(nlist[i])
+    print(tmp)
     if len(tmp) != K:
       continue
     ans_flag = 0
