@@ -1,43 +1,36 @@
 # Keys
-def calc(N, M, K, CAR):
+# 関数呼び出しのオーバーヘッドや変数アクセスの違いによりTLEに
+def calc(N, M, K, C, A, R):
   ans = 0
   for bit in range(1 << N):
-    nlist = [i+1 for i in list(range(N))]
-    tmp = []
-    for i in range(N):
-      if bit & (1 << i):
-        tmp.append(nlist[i])
-    print(tmp)
-    if len(tmp) != K:
-      continue
-    ans_flag = 0
-    for car in CAR:
-      for j in tmp:
-        flag = True
-        if j not in car[1:-1]:
-          flag = False
-          break
-      if car[car[0]+1] == "o" and flag == False:
-        ans_flag = 0
+    judge = True
+    for i in range(M):
+      cnt = 0
+      for j in A[i]:
+        if bit>>j&1:
+          cnt += 1
+      if (cnt >= K and R[i] == "o") or (cnt < K and R[i] =="x"):
+        continue
+      else:
+        judge = False
         break
-      if car[car[0]+1] == "x" and flag == True:
-        ans_flag = 0
-        break
-      ans_flag = 1
-    if ans_flag == 1:
+    if judge:
       ans += 1
   return ans
 
 def main():
   N, M, K = [int(i) for i in input().split()]
-  CAR = []
+  C = []
+  A = []
+  R = []
   for _ in range(M):
-    car = list(input().split())
-    r = list(car.pop(-1))
-    ca = [int(i) for i in car]
-    car = ca + r
-    CAR.append(car)
-  print(calc(N, M, K, CAR))
+    c, *a, r = input().split()
+    c = int(c)
+    a = [int(i)-1 for i in a]
+    C.append(c)
+    A.append(a)
+    R.append(r)
+  print(calc(N, M, K, C, A, R))
 
 if __name__=="__main__":
   main()
