@@ -6,30 +6,31 @@ def f(N, M, A, B):
   buy = M
   i = 0
   j = 0
-  while sell < buy:
+  while i < N and j < M and sell < buy:
     if A[i] < B[j]+1:
       ans = A[i]
       sell += 1
-      if i < N-1:
-        i += 1
+      i += 1
     elif A[i] == B[j]+1:
       ans = A[i]
       sell += 1
       buy -= 1
-      if i < N-1:
-        i += 1
-      if j < M-1:
-        j += 1
+      i += 1
+      j += 1
     else:
       ans = B[j]+1
       buy -= 1
-      if j < M-1:
-        j += 1
-    print("i", i)
-    print("j", j)
-    print("sell", sell)
-    print("buy", buy)
-    print("ans", ans)
+      j += 1
+  if i == N:
+    while j < M and sell < buy:
+      ans = B[j]+1
+      buy -= 1
+      j += 1
+  elif j == M:
+    while i < N and sell < buy:
+      ans = A[i]
+      sell += 1
+      i += 1
   return ans
 
 def main():
@@ -41,7 +42,3 @@ def main():
 if __name__=="__main__":
   main()
 
-# 反例
-1 3
-100
-200 150 300
