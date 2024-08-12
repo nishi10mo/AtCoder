@@ -1,30 +1,28 @@
 # Make Takahashi Happy
-from collections import deque
-
+from itertools import permutations
 def f(H, W, A):
     ans = 0
-    que = deque()
-    que.append((0, 0))
-    his = {}
-    while que:
-        h, w = que.pop()
-        if A[h][w] in his:
-            continue
-        else:
-            his.add(A[h][w])
-        if h==H-1 and w==W-1:
+    direction = ["R"]*(H-1) + ["D"]*(W-1)
+    unique_permutations = list(set(permutations(direction)))
+    for perm in unique_permutations:
+        happy = True
+        history = set()
+        h = 0
+        w = 0
+        history.add(A[h][w])
+        for d in perm:
+            if d=="R":
+                w += 1
+            else:
+                h += 1
+            if A[h][w] in history:
+                happy = False
+                break
+            else:
+                history.add(A[h][w])
+        if happy == True:
             ans += 1
-            his = {}
-        elif h<H-1 and w<W-1:
-            que.append((h+1, w))
-            que.append((h, w+1))
-        elif h<H-1 and w==W-1:
-            que.append((h+1, w))
-        elif h==H-1 and w<W-1:
-            que.append((h, w+1))
-        
-
-
+    return ans
 
 def main():
     H, W = [int(i) for i in input().split()]
@@ -32,3 +30,7 @@ def main():
     for _ in range(H):
         a = [int(i) for i in input().split()]
         A.append(a)
+    print(f(H, W, A))
+
+if __name__=="__main__":
+    main()
