@@ -14,14 +14,10 @@ def f(A, B, C, D):
     angles = []
     for i in range(4):
         inner_product = vector[i][0] @ vector[i][1]
-        product = sum(vector[i][0]) * sum(vector[i][1])
-        print(f"cos: {inner_product/product}")
-        print(f"acos: {math.acos(inner_product/product)}")
+        product = np.linalg.norm(vector[i][0], ord=2) * np.linalg.norm(vector[i][1], ord=2)
         degree = math.degrees(math.acos(inner_product / product))
-        print(f"degree: {degree}")
         angles.append(degree)
-    print(angles)
-    if sum(angles) == 360:
+    if round(sum(angles)) == 360:
         return "Yes"
     return "No"
 
