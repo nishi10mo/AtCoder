@@ -1,18 +1,15 @@
-# Chinese Restaurant
 def f(N, p):
-    ans = 0
-    diffs = []
-    for i, v in enumerate(p):
-        diff = abs(v-i)
-        diffs.append(diff)
-    for _ in range(N):
-        total = sum(diffs)
-        diffs = [i-1 for i in diffs]
-    total = sum(diffs)
-
-        
-        
+    results = [0]*N
+    for i in range(N):
+        results[(p[i]-i)%N] += 1
+        results[(p[i]-i-1)%N] += 1
+        results[(p[i]-i+1)%N] += 1
+    return max(results)
 
 def main():
     N = int(input())
     p = [int(i) for i in input().split()]
+    print(f(N, p))
+
+if __name__ == '__main__':
+    main()
