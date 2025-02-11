@@ -1,28 +1,22 @@
 # Make Takahashi Happy
 from itertools import permutations
 def f(H, W, A):
-    ans = 0
-    direction = ["R"]*(H-1) + ["D"]*(W-1)
-    unique_permutations = list(set(permutations(direction)))
-    for perm in unique_permutations:
-        happy = True
-        history = set()
-        h = 0
-        w = 0
-        history.add(A[h][w])
-        for d in perm:
-            if d=="R":
-                w += 1
-            else:
-                h += 1
-            if A[h][w] in history:
-                happy = False
-                break
-            else:
-                history.add(A[h][w])
-        if happy == True:
-            ans += 1
-    return ans
+    visited = set([A[0][0]])
+    def search_board(h, w, board, visited, b_x, b_y):
+        if b_x == h-1 and b_y == w-1:
+            return 1
+        else:
+            ret = 0
+            if b_x != h-1 and board[b_x+1][b_y] not in visited:
+                visited.add(board[b_x+1][b_y])
+                ret += search_board(h, w, board, visited, b_x+1, b_y)
+                visited.remove(board[b_x+1][b_y])
+            if b_y != w-1 and board[b_x][b_y+1] not in visited:
+                visited.add(board[b_x][b_y+1])
+                ret += search_board(h, w, board, visited, b_x, b_y+1)
+                visited.remove(board[b_x][b_y+1])
+        return ret
+    return search_board(H, W, A, visited, 0, 0)
 
 def main():
     H, W = [int(i) for i in input().split()]
