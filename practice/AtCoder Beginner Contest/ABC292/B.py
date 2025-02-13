@@ -8,7 +8,7 @@ def f(N, Q, event):
         elif event[i][0] == 2:
             scores[event[i][1]-1] += 2
         else:
-            if scores[event[i][1]-1] == 2:
+            if scores[event[i][1]-1] >= 2:
                 results.append("Yes")
             else:
                 results.append("No")
