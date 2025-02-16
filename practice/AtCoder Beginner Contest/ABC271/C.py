@@ -1,26 +1,32 @@
 # Manga
 def f(N, books):
-    books = set(books)
-    dup = N - len(books)
-    books = list(books)
-    pre = 0
-    while books:
-        a = books[0]
-        if a == pre+1:
-            pre = books.pop(0)
+    books = sorted(books)
+    ans = 0
+    if books[0] == 1:
+        ans += 1
+    if len(books) == 1:
+        return ans
+    left = 0
+    right = N-1
+    if books[left] != 1:
+        if right > left + 1:
+            right -= 2
+            ans += 1
+            books[left] += 1
         else:
-            if dup > 1:
-                dup -= 2
-                pre += 1
-            elif len(books) > 2:
-                final = books.pop(-1)
-                semifinal = books.pop(-1)
-                pre += 1
+            return ans
+    while left < right:
+        if books[left+1] == books[left] + 1:
+            ans += 1
+            left += 1
+        else:
+            if right > left + 1:
+                right -= 2
+                ans += 1
+                books[left] += 1
             else:
                 break
-    if dup > 1:
-        pre += dup//2
-    return pre  
+    return ans
 
 def main():
     N = int(input())
