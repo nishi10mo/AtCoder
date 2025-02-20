@@ -1,32 +1,26 @@
 # Manga
 def f(N, books):
     books = sorted(books)
+    s = [books[0]]
+    l = []
+    for i in range(1, N):
+        if books[i] == s[-1]:
+            l.append(books[i])
+        else:
+            s.append(books[i])
+    s += l   
+    idx = 0
     ans = 0
-    if books[0] == 1:
-        ans += 1
-    if len(books) == 1:
-        return ans
-    left = 0
-    right = N-1
-    if books[left] != 1:
-        if right > left + 1:
-            right -= 2
-            ans += 1
-            books[left] += 1
+    while idx < len(s):
+        if s[idx] == ans+1:
+            idx += 1
         else:
-            return ans
-    while left < right:
-        if books[left+1] == books[left] + 1:
-            ans += 1
-            left += 1
-        else:
-            if right > left + 1:
-                right -= 2
-                ans += 1
-                books[left] += 1
-            else:
+            if len(s) - idx < 2:
                 break
-    return ans
+            s.pop()
+            s.pop()
+        ans += 1
+    return ans        
 
 def main():
     N = int(input())
