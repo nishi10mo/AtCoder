@@ -1,34 +1,36 @@
 # Simple path
-from collections import defaultdict, deque
+import sys
+sys.setrecursionlimit(10**6)
+from collections import deque
 def f(N, X, Y, graph):
-    used = defaultdict(lambda: False)
+    oya = [-1]*(N+1)
+    oya[X] = 0
     deq = deque()
-    stop = False
-    def dfs(start, end):
-        nonlocal stop
-        if not stop:
-            deq.append(start)
-        if start == end:
-            stop = True
-        used[start] = True
-        print(f"used: {used}")
-        for neighbor in graph[start]:
-            if not used[neighbor]:
-                dfs(neighbor, end)
-        if not stop:
-            deq.pop()
-    dfs(X, Y)
-    return deq
+    deq.append(X)
+    while deq:
+        cur = deq.popleft()
+        if cur == Y:
+            break
+        for nxt in graph[cur]:
+            if oya[nxt] == -1:
+                oya[nxt] = cur
+                deq.append(nxt)
+    ans = []
+    cur = Y
+    while cur:
+        ans.append(cur)
+        cur = oya[cur]
+    return ans[::-1]
 
 def main():
     N, X, Y = [int(i) for i in input().split()]
-    graph = defaultdict(list)
+    graph = [[] for _ in range(N+1)]
     for _ in range(N-1):
         u, v = [int(i) for i in input().split()]
         graph[u].append(v)
         graph[v].append(u)
-    ans = f(N, X, Y, graph)
-    print(*ans)
+    results = f(N, X, Y, graph)
+    print(*results)
 
 if __name__=="__main__":
     main()
